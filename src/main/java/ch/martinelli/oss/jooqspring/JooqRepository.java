@@ -19,7 +19,16 @@ import static org.jooq.impl.DSL.row;
 @Transactional(readOnly = true)
 public abstract class JooqRepository<T extends Table<R>, R extends UpdatableRecord<R>, ID> {
 
+    /**
+     * The DSLContext instance used for executing SQL queries and interacting with the database.
+     * It serves as the primary interface for jOOQ operations.
+     */
     protected final DSLContext dslContext;
+    /**
+     * The database table associated with this repository.
+     * Represents the specific table in the database that this repository interacts with.
+     * Used for performing CRUD operations.
+     */
     protected final T table;
 
     /**
