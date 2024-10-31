@@ -1,4 +1,4 @@
-package ch.martinelli.jooqspring;
+package ch.martinelli.oss.jooqspring;
 
 import org.jooq.Record;
 import org.jooq.*;
