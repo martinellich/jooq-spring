@@ -2,9 +2,7 @@ name: CI
 
 on:
     push:
-        branches: [ develop ]
-    pull_request:
-        branches: [ develop ]
+        branches: [ main ]
 
     workflow_dispatch:
 
@@ -20,6 +18,11 @@ jobs:
                 with:
                     java-version: '17'
                     distribution: 'temurin'
+                    server-id: central
+                    server-username: MAVEN_USERNAME
+                    server-password: MAVEN_PASSWORD
+                    gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+                    gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
             -   name: Cache local Maven repository
                 uses: actions/cache@v2
@@ -30,4 +33,8 @@ jobs:
                         ${{ runner.os }}-maven-
 
             -   name: Maven Deploy
-                run: mvn verify
+                run: mvn deploy -Pdeploy
+                env:
+                    MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+                    MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+                    MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
