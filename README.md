@@ -17,6 +17,8 @@ Add a dependency to the current version:
 ## Components
 ### JooqRepository
 
+Checkout the code for documentation [JooqRepository](src/main/java/ch/martinelli/oss/jooqspring/JooqRepository.java)
+
 #### Usage
 ```java
 @Repository
