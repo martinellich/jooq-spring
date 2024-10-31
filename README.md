@@ -17,6 +17,7 @@ Add a dependency to the current version:
 ## Components
 ### JooqRepository
 
+#### Usage
 ```java
 @Repository
 public class AthleteRepository extends JooqRepository<Athlete, AthleteRecord, Long> {
