@@ -143,7 +143,7 @@ public abstract class JooqRepository<T extends Table<R>, R extends UpdatableReco
     private Condition eq(UniqueKey<R> pk, ID id) {
         List<TableField<R, ?>> fields = pk.getFields();
         if (fields.size() == 1) {
-            TableField<R, ?> first = fields.getFirst();
+            TableField<R, ?> first = fields.get(0);
             return ((Field<Object>) first).equal(first.getDataType().convert(id));
         } else {
             return row(pk.getFieldsArray()).equal((Record) id);
