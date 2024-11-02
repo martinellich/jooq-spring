@@ -1,4 +1,4 @@
-name: CI
+name: Publish
 
 on:
     push:
@@ -11,10 +11,10 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            -   uses: actions/checkout@v2
+            -   uses: actions/checkout@v4
 
             -   name: Set up JDK 17
-                uses: actions/setup-java@v2
+                uses: actions/setup-java@v4
                 with:
                     java-version: '17'
                     distribution: 'temurin'
@@ -25,7 +25,7 @@ jobs:
                     gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
             -   name: Cache local Maven repository
-                uses: actions/cache@v2
+                uses: actions/cache@v4
                 with:
                     path: ~/.m2/repository
                     key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -35,6 +35,6 @@ jobs:
             -   name: Maven Deploy
                 run: mvn deploy -Pdeploy
                 env:
-                    MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-                    MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+                    MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+                    MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
                     MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}

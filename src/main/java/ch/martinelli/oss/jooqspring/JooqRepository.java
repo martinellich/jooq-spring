@@ -19,7 +19,16 @@ import static org.jooq.impl.DSL.row;
 @Transactional(readOnly = true)
 public abstract class JooqRepository<T extends Table<R>, R extends UpdatableRecord<R>, ID> {
 
+    /**
+     * The DSLContext instance used for executing SQL queries and interacting with the database.
+     * It serves as the primary interface for jOOQ operations.
+     */
     protected final DSLContext dslContext;
+    /**
+     * The database table associated with this repository.
+     * Represents the specific table in the database that this repository interacts with.
+     * Used for performing CRUD operations.
+     */
     protected final T table;
 
     /**
@@ -68,12 +77,41 @@ public abstract class JooqRepository<T extends Table<R>, R extends UpdatableReco
     }
 
     /**
+     * Retrieves a list of records from the database with filtering, pagination, and sorting.
+     *
+     * @param condition the condition to filter the records by
+     * @param offset the starting position of the first record
+     * @param limit the maximum number of records to retrieve
+     * @param orderBy the list of fields to order the result set by
+     * @return a List containing the fetched records
+     */
+    public List<R> findAll(Condition condition, int offset, int limit, List<OrderField<?>> orderBy) {
+        return dslContext
+                .selectFrom(table)
+                .where(condition)
+                .orderBy(orderBy)
+                .offset(offset)
+                .limit(limit)
+                .fetch();
+    }
+
+    /**
      * Counts the total number of records in the associated table.
      *
      * @return the total number of records in the table
      */
     public int count() {
         return dslContext.fetchCount(table);
+    }
+
+    /**
+     * Counts the number of records in the associated table that match the given condition.
+     *
+     * @param condition the condition to filter the records by
+     * @return the number of matching records
+     */
+    public int count(Condition condition) {
+        return dslContext.fetchCount(table, condition);
     }
 
     /**
@@ -129,6 +167,19 @@ public abstract class JooqRepository<T extends Table<R>, R extends UpdatableReco
         return dslContext.deleteFrom(table)
                 .where(eq(table.getPrimaryKey(), id))
                 .execute();
+    }
+
+    /**
+     * Deletes records from the database that match the given condition.
+     *
+     * @param condition the condition to filter which records to delete
+     * @return the number of affected rows
+     */
+    @Transactional
+    public int delete(Condition condition) {
+        return dslContext
+                .deleteFrom(table)
+                .where(condition).execute();
     }
 
     /**
