@@ -1,6 +1,5 @@
 package ch.martinelli.oss.jooqspring;
 
-import org.jooq.Record;
 import org.jooq.*;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -80,9 +79,9 @@ public abstract class JooqRepository<T extends Table<R>, R extends UpdatableReco
      * Retrieves a list of records from the database with filtering, pagination, and sorting.
      *
      * @param condition the condition to filter the records by
-     * @param offset the starting position of the first record
-     * @param limit the maximum number of records to retrieve
-     * @param orderBy the list of fields to order the result set by
+     * @param offset    the starting position of the first record
+     * @param limit     the maximum number of records to retrieve
+     * @param orderBy   the list of fields to order the result set by
      * @return a List containing the fetched records
      */
     public List<R> findAll(Condition condition, int offset, int limit, List<OrderField<?>> orderBy) {
@@ -197,7 +196,18 @@ public abstract class JooqRepository<T extends Table<R>, R extends UpdatableReco
             TableField<R, ?> first = fields.get(0);
             return ((Field<Object>) first).equal(first.getDataType().convert(id));
         } else {
-            return row(pk.getFieldsArray()).equal((Record) id);
+            java.lang.reflect.Field[] recordFields = id.getClass().getDeclaredFields();
+            Object[] idValues = new Object[recordFields.length];
+            for (int i = 0; i < recordFields.length; i++) {
+                try {
+                    java.lang.reflect.Field recordField = recordFields[i];
+                    recordField.setAccessible(true);
+                    idValues[i] = recordField.get(id);
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return row(pk.getFieldsArray()).equal(idValues);
         }
     }
 
