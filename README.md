@@ -1,6 +1,6 @@
 # jOOQ Spring Integration
 
-**jooq-spring** is a small open source library that provides inteegation of [jOOQ](https://www.jooq.org) with the [Spring Framework](https://spring.io/projects/spring-framework).
+**jooq-spring** is a small open-source library that provides integration of [jOOQ](https://www.jooq.org) with the [Spring Framework](https://spring.io/projects/spring-framework).
 
 ## Dependency 
 
