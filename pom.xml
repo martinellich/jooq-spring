@@ -6,7 +6,7 @@
 
     <groupId>ch.martinelli.oss</groupId>
     <artifactId>jooq-spring</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
 
     <name>jOOQ Spring Integration</name>
     <description>Helpful utilities when using jOOQ with Spring</description>
@@ -132,7 +132,7 @@
     <scm>
         <connection>scm:git:git@github.com:martinellich/jooq-spring.git</connection>
         <developerConnection>scm:git:git@github.com:martinellich/jooq-spring.git</developerConnection>
-        <url>git@github.com:maritnellich/jooq-spring.git</url>
+        <url>git@github.com:martinellich/jooq-spring.git</url>
     </scm>
 
     <distributionManagement>
