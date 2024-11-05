@@ -96,6 +96,34 @@ public abstract class JooqDAO<T extends Table<R>, R extends UpdatableRecord<R>, 
     }
 
     /**
+     * Retrieves a list of records from the database with filtering.
+     *
+     * @param condition the condition to filter the records by
+     * @return a List containing the fetched records
+     */
+    public List<R> findAll(Condition condition) {
+        return dslContext
+                .selectFrom(table)
+                .where(condition)
+                .fetch();
+    }
+
+    /**
+     * Retrieves a list of records from the database with filtering, and sorting.
+     *
+     * @param condition the condition to filter the records by
+     * @param orderBy   the list of fields to order the result set by
+     * @return a List containing the fetched records
+     */
+    public List<R> findAll(Condition condition, List<OrderField<?>> orderBy) {
+        return dslContext
+                .selectFrom(table)
+                .where(condition)
+                .orderBy(orderBy)
+                .fetch();
+    }
+
+    /**
      * Counts the total number of records in the associated table.
      *
      * @return the total number of records in the table
@@ -115,7 +143,7 @@ public abstract class JooqDAO<T extends Table<R>, R extends UpdatableRecord<R>, 
     }
 
     /**
-     * Saves the given record to the database. Attaches the record to the
+     * Saves (INSERT or UPDATE) the given record to the database. Attaches the record to the
      * DSLContext and stores it.
      *
      * @param record the record to save
@@ -128,7 +156,7 @@ public abstract class JooqDAO<T extends Table<R>, R extends UpdatableRecord<R>, 
     }
 
     /**
-     * Merges the given record into the database. Attaches the record to the DSLContext
+     * Merges (INSERT … ON DUPLICATE KEY UPDATE) the given record into the database. Attaches the record to the DSLContext
      * and attempts to merge it.
      *
      * @param record the record to merge
