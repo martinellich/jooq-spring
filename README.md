@@ -12,7 +12,7 @@ Add a dependency to the current version:
 <dependency>
     <groupId>ch.martinelli.oss</groupId>
     <artifactId>jooq-spring</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
 </dependency>
 ```
 
