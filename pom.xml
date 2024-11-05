@@ -132,7 +132,7 @@
     <scm>
         <connection>scm:git:git@github.com:martinellich/jooq-spring.git</connection>
         <developerConnection>scm:git:git@github.com:martinellich/jooq-spring.git</developerConnection>
-        <url>git@github.com:maritnellich/jooq-spring.git</url>
+        <url>git@github.com:martinellich/jooq-spring.git</url>
     </scm>
 
     <distributionManagement>
