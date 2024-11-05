@@ -156,6 +156,17 @@ public abstract class JooqDAO<T extends Table<R>, R extends UpdatableRecord<R>, 
     }
 
     /**
+     * Saves a list of records to the database using batch store operations.
+     *
+     * @param records the list of records to be saved
+     * @return an array containing the number of affected rows for each batch operation
+     */
+    @Transactional
+    public int[] saveAll(List<R> records) {
+        return dslContext.batchStore(records).execute();
+    }
+
+    /**
      * Merges (INSERT … ON DUPLICATE KEY UPDATE) the given record into the database. Attaches the record to the DSLContext
      * and attempts to merge it.
      *
