@@ -6,7 +6,7 @@
 
     <groupId>ch.martinelli.oss</groupId>
     <artifactId>jooq-spring</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1-SNAPSHOT</version>
 
     <name>jOOQ Spring Integration</name>
     <description>Helpful utilities when using jOOQ with Spring</description>
