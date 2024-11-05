@@ -1,6 +1,8 @@
 # jOOQ Spring Integration
 
-**jooq-spring** is a small open source library that provides inteegation of [jOOQ](https://www.jooq.org) with the [Spring Framework](https://spring.io/projects/spring-framework).
+**jooq-spring** is a small open-source library that provides integration of [jOOQ](https://www.jooq.org) with the [Spring Framework](https://spring.io/projects/spring-framework).
+It follows the [DAO pattern](https://en.wikipedia.org/wiki/Data_access_object) and not the Repository pattern 
+because the Repository is a pttern
 
 ## Dependency 
 
@@ -10,21 +12,21 @@ Add a dependency to the current version:
 <dependency>
     <groupId>ch.martinelli.oss</groupId>
     <artifactId>jooq-spring</artifactId>
-    <version>0.0.3</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 
 ## Components
-### JooqRepository
+### JooqDAO
 
-Checkout the code for documentation [JooqRepository](src/main/java/ch/martinelli/oss/jooqspring/JooqRepository.java)
+Checkout the code for documentation [JooqRepository](src/main/java/ch/martinelli/oss/jooqspring/JooqDAO.java)
 
 #### Usage
 ```java
-@Repository
-public class AthleteRepository extends JooqRepository<Athlete, AthleteRecord, Long> {
+@Component
+public class AthleteDAO extends JooqDAO<Athlete, AthleteRecord, Long> {
 
-    public AthleteRepository(DSLContext dslContext) {
+    public AthleteDAO(DSLContext dslContext) {
         super(dslContext, ATHLETE);
     }
 }

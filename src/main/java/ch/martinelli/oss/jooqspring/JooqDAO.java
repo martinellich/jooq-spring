@@ -9,14 +9,15 @@ import java.util.Optional;
 import static org.jooq.impl.DSL.row;
 
 /**
- * Abstract repository class for CRUD operations using jOOQ.
+ * Abstract DAO class for CRUD operations using jOOQ.
+ * <a href="https://en.wikipedia.org/wiki/Data_access_object">DAO on Wikipedia</a>
  *
  * @param <T>  the type of the jOOQ Table
  * @param <R>  the type of the jOOQ UpdatableRecord
  * @param <ID> the type of the primary key
  */
 @Transactional(readOnly = true)
-public abstract class JooqRepository<T extends Table<R>, R extends UpdatableRecord<R>, ID> {
+public abstract class JooqDAO<T extends Table<R>, R extends UpdatableRecord<R>, ID> {
 
     /**
      * The DSLContext instance used for executing SQL queries and interacting with the database.
@@ -36,7 +37,7 @@ public abstract class JooqRepository<T extends Table<R>, R extends UpdatableReco
      * @param dslContext the DSLContext to be used for database operations
      * @param table      the table associated with this repository
      */
-    public JooqRepository(DSLContext dslContext, T table) {
+    public JooqDAO(DSLContext dslContext, T table) {
         this.dslContext = dslContext;
         this.table = table;
     }
@@ -194,7 +195,7 @@ public abstract class JooqRepository<T extends Table<R>, R extends UpdatableReco
         List<TableField<R, ?>> fields = pk.getFields();
         if (fields.size() == 1) {
             TableField<R, ?> first = fields.get(0);
-            return ((Field<Object>) first).equal(first.getDataType().convert(id));
+            return ((Field<Object>) first).equal(id);
         } else {
             java.lang.reflect.Field[] recordFields = id.getClass().getDeclaredFields();
             Object[] idValues = new Object[recordFields.length];
