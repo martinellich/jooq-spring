@@ -24,26 +24,6 @@ The JooqDAO follows the [DAO pattern](https://en.wikipedia.org/wiki/Data_access_
 the [Repository pattern](https://martinfowler.com/eaaCatalog/repository.html) because the Repository is a pattern from
 Domain Driven Design (DDD).
 
-#### Methods
-
-| Return Type   | Method                                                                                               | Description                                                                            |
-|---------------|------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
-| `Optional<R>` | `findById(ID id)`                                                                                    | Finds a record by its primary key.                                                     |
-| `List<R>`     | `findAll(int offset, int limit, List<org.jooq.OrderField<?>> orderBy)`                               | Retrieves a list of records from the database with pagination and sorting.             |
-| `List<R>`     | `findAll(org.jooq.Condition condition, int offset, int limit, List<org.jooq.OrderField<?>> orderBy)` | Retrieves a list of records from the database with filtering, pagination, and sorting. |
-| `List<R>`     | `findAll(org.jooq.Condition condition, List<org.jooq.OrderField<?>> orderBy)`                        | Retrieves a list of records from the database with filtering, and sorting.             |
-| `List<R>`     | `findAll(org.jooq.Condition condition)`                                                              | Retrieves a list of records from the database with filtering.                          |
-| `int`         | `count()`                                                                                            | Counts the total number of records in the associated table.                            |
-| `int`         | `count(org.jooq.Condition condition)`                                                                | Counts the number of records in the associated table that match the given condition.   |
-| `int`         | `save(R record)`                                                                                     | Saves the given record to the database.                                                |
-| `int`         | `merge(R record)`                                                                                    | Merges the given record into the database.                                             |
-| `int`         | `deleteById(ID id)`                                                                                  | Deletes a record from the database identified by its primary key.                      |
-| `int`         | `delete(R record)`                                                                                   | Deletes the specified record from the database.                                        |
-| `int`         | `delete(org.jooq.Condition condition)`                                                               | Deletes records from the database that match the given condition.                      |
-
-Checkout the code for documentation for further
-information [JooqDAO](src/main/java/ch/martinelli/oss/jooqspring/JooqDAO.java).
-
 #### Usage
 
 ```java
@@ -56,6 +36,26 @@ public class AthleteDAO extends JooqDAO<Athlete, AthleteRecord, Long> {
     }
 }
 ```
+
+#### Methods
+
+| Return Type   | Method                                                                                               | Description                                                                            |
+|---------------|------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
+| `Optional<R>` | `findById(ID id)`                                                                                    | Finds a record by its primary key.                                                     |
+| `List<R>`     | `findAll(int offset, int limit, List<org.jooq.OrderField<?>> orderBy)`                               | Retrieves a list of records from the database with pagination and sorting.             |
+| `List<R>`     | `findAll(org.jooq.Condition condition, int offset, int limit, List<org.jooq.OrderField<?>> orderBy)` | Retrieves a list of records from the database with filtering, pagination, and sorting. |
+| `List<R>`     | `findAll(org.jooq.Condition condition, List<org.jooq.OrderField<?>> orderBy)`                        | Retrieves a list of records from the database with filtering, and sorting.             |
+| `List<R>`     | `findAll(org.jooq.Condition condition)`                                                              | Retrieves a list of records from the database with filtering.                          |
+| `int`         | `count()`                                                                                            | Counts the total number of records in the associated table.                            |
+| `int`         | `count(org.jooq.Condition condition)`                                                                | Counts the number of records in the associated table that match the given condition.   |
+| `int`         | `save(R record)`                                                                                     | Saves the given record to the database.                                                |
+| `int[]`       | `saveAll(List<R> record)`                                                                            | Saves a list of records to the database using batch store operations.                  |
+| `int`         | `merge(R record)`                                                                                    | Merges the given record into the database.                                             |
+| `int`         | `deleteById(ID id)`                                                                                  | Deletes a record from the database identified by its primary key.                      |
+| `int`         | `delete(R record)`                                                                                   | Deletes the specified record from the database.                                        |
+| `int`         | `delete(org.jooq.Condition condition)`                                                               | Deletes records from the database that match the given condition.                      |
+
+Check out the code documentation for further information [JooqDAO](src/main/java/ch/martinelli/oss/jooqspring/JooqDAO.java).
 
 ## License
 
