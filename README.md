@@ -31,6 +31,8 @@ Domain Driven Design (DDD).
 | `Optional<R>` | `findById(ID id)`                                                                                    | Finds a record by its primary key.                                                     |
 | `List<R>`     | `findAll(int offset, int limit, List<org.jooq.OrderField<?>> orderBy)`                               | Retrieves a list of records from the database with pagination and sorting.             |
 | `List<R>`     | `findAll(org.jooq.Condition condition, int offset, int limit, List<org.jooq.OrderField<?>> orderBy)` | Retrieves a list of records from the database with filtering, pagination, and sorting. |
+| `List<R>`     | `findAll(org.jooq.Condition condition, List<org.jooq.OrderField<?>> orderBy)`                        | Retrieves a list of records from the database with filtering, and sorting.             |
+| `List<R>`     | `findAll(org.jooq.Condition condition)`                                                              | Retrieves a list of records from the database with filtering.                          |
 | `int`         | `count()`                                                                                            | Counts the total number of records in the associated table.                            |
 | `int`         | `count(org.jooq.Condition condition)`                                                                | Counts the number of records in the associated table that match the given condition.   |
 | `int`         | `save(R record)`                                                                                     | Saves the given record to the database.                                                |
