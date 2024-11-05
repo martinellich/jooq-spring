@@ -115,7 +115,7 @@ public abstract class JooqDAO<T extends Table<R>, R extends UpdatableRecord<R>, 
     }
 
     /**
-     * Saves the given record to the database. Attaches the record to the
+     * Saves (INSERT or UPDATE) the given record to the database. Attaches the record to the
      * DSLContext and stores it.
      *
      * @param record the record to save
@@ -128,7 +128,7 @@ public abstract class JooqDAO<T extends Table<R>, R extends UpdatableRecord<R>, 
     }
 
     /**
-     * Merges the given record into the database. Attaches the record to the DSLContext
+     * Merges (INSERT … ON DUPLICATE KEY UPDATE) the given record into the database. Attaches the record to the DSLContext
      * and attempts to merge it.
      *
      * @param record the record to merge
