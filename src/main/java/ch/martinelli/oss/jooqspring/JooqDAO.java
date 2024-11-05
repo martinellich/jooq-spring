@@ -195,7 +195,7 @@ public abstract class JooqDAO<T extends Table<R>, R extends UpdatableRecord<R>, 
         List<TableField<R, ?>> fields = pk.getFields();
         if (fields.size() == 1) {
             TableField<R, ?> first = fields.get(0);
-            return ((Field<Object>) first).equal(first.getDataType().convert(id));
+            return ((Field<Object>) first).equal(id);
         } else {
             java.lang.reflect.Field[] recordFields = id.getClass().getDeclaredFields();
             Object[] idValues = new Object[recordFields.length];

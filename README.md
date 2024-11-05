@@ -17,7 +17,7 @@ Add a dependency to the current version:
 ```
 
 ## Components
-### JooqRepository
+### JooqDAO
 
 Checkout the code for documentation [JooqRepository](src/main/java/ch/martinelli/oss/jooqspring/JooqDAO.java)
 
