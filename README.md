@@ -24,7 +24,7 @@ The JooqDAO follows the [DAO pattern](https://en.wikipedia.org/wiki/Data_access_
 the [Repository pattern](https://martinfowler.com/eaaCatalog/repository.html) because the Repository is a pattern from
 Domain Driven Design (DDD).
 
-Checkout the code for documentation [JooqRepository](src/main/java/ch/martinelli/oss/jooqspring/JooqDAO.java)
+Checkout the code for documentation [JooqDAO](src/main/java/ch/martinelli/oss/jooqspring/JooqDAO.java)
 
 #### Usage
 
