@@ -29,5 +29,5 @@ jobs:
                     restore-keys: |
                         ${{ runner.os }}-maven-
 
-            -   name: Maven Deploy
+            -   name: Maven Build
                 run: mvn verify
