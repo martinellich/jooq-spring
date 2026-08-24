@@ -35,7 +35,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.scm.id>github</project.scm.id>
         <jooq.version>3.21.7</jooq.version>
-        <spring.version>7.0.7</spring.version>
+        <spring.version>7.0.9</spring.version>
     </properties>
 
     <dependencies>
