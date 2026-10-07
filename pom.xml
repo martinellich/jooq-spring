@@ -6,7 +6,7 @@
 
     <groupId>ch.martinelli.oss</groupId>
     <artifactId>jooq-spring</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
 
     <name>jOOQ Spring Integration</name>
     <description>Helpful utilities when using jOOQ with Spring</description>
@@ -34,8 +34,8 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.scm.id>github</project.scm.id>
-        <jooq.version>3.20.10</jooq.version>
-        <spring.version>7.0.5</spring.version>
+        <jooq.version>3.21.9</jooq.version>
+        <spring.version>7.0.9</spring.version>
     </properties>
 
     <dependencies>
@@ -118,7 +118,7 @@
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.10.0</version>
+                        <version>0.11.0</version>
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>
