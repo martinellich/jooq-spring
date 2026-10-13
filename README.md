@@ -12,7 +12,7 @@ Add a dependency to the current version:
 <dependency>
     <groupId>ch.martinelli.oss</groupId>
     <artifactId>jooq-spring</artifactId>
-    <version>0.4.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
@@ -41,6 +41,7 @@ public class AthleteDAO extends JooqDAO<Athlete, AthleteRecord, Long> {
 
 | Return Type   | Method                                                                                               | Description                                                                            |
 |---------------|------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
+| `boolean`     | `existsById(ID id)`                                                                                  | Checks whether a record exists with the specified primary key.                         |
 | `Optional<R>` | `findById(ID id)`                                                                                    | Finds a record by its primary key.                                                     |
 | `List<R>`     | `findAll(int offset, int limit, List<org.jooq.OrderField<?>> orderBy)`                               | Retrieves a list of records from the database with pagination and sorting.             |
 | `List<R>`     | `findAll(org.jooq.Condition condition, int offset, int limit, List<org.jooq.OrderField<?>> orderBy)` | Retrieves a list of records from the database with filtering, pagination, and sorting. |
