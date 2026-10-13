@@ -52,6 +52,7 @@ public class AthleteDAO extends JooqDAO<Athlete, AthleteRecord, Long> {
 | `int`         | `save(R record)`                                                                                     | Saves the given record to the database.                                                |
 | `int[]`       | `saveAll(List<R> record)`                                                                            | Saves a list of records to the database using batch store operations.                  |
 | `int`         | `merge(R record)`                                                                                    | Merges the given record into the database.                                             |
+| `int`         | `updateOptimistically(ID id, Long expectedVersion, R record)`                                        | Updates the given record in the database using optimistic locking.                     |
 | `int`         | `deleteById(ID id)`                                                                                  | Deletes a record from the database identified by its primary key.                      |
 | `int`         | `delete(R record)`                                                                                   | Deletes the specified record from the database.                                        |
 | `int`         | `delete(org.jooq.Condition condition)`                                                               | Deletes records from the database that match the given condition.                      |

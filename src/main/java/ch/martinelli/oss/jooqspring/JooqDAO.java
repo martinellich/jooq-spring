@@ -1,9 +1,11 @@
 package ch.martinelli.oss.jooqspring;
 
 import org.jooq.*;
+import org.springframework.dao.ConcurrencyFailureException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.jooq.impl.DSL.row;
@@ -32,14 +34,33 @@ public abstract class JooqDAO<T extends Table<R>, R extends UpdatableRecord<R>, 
     protected final T table;
 
     /**
+     * The version field used for optimistic locking.
+     * Represents the column in the database table that stores the version number for each record.
+     * Used to implement optimistic locking to prevent concurrent updates from overwriting each other.
+     */
+    protected final TableField<R, Long> versionField;
+
+    /**
      * Constructs a new JooqRepository with the specified DSLContext and table.
      *
      * @param dslContext the DSLContext to be used for database operations
      * @param table      the table associated with this repository
      */
     public JooqDAO(DSLContext dslContext, T table) {
+        this(dslContext, table, null);
+    }
+
+    /**
+     * Constructs a new JooqRepository with the specified DSLContext, table and version field.
+     *
+     * @param dslContext the DSLContext to be used for database operations
+     * @param table      the table associated with this repository
+     * @param versionField the version field used for optimistic locking
+     */
+    public JooqDAO(DSLContext dslContext, T table, TableField<R, Long> versionField) {
         this.dslContext = dslContext;
         this.table = table;
+        this.versionField = versionField;
     }
 
     /**
@@ -192,6 +213,58 @@ public abstract class JooqDAO<T extends Table<R>, R extends UpdatableRecord<R>, 
     public int merge(R record) {
         dslContext.attach(record);
         return record.merge();
+    }
+
+    /**
+     * Updates a record using optimistic locking.
+     *
+     * @param id              the primary key
+     * @param expectedVersion the version originally read
+     * @param record          the record containing the fields and values to update
+     * @return the number of affected rows (1 on success)
+     * @throws IllegalStateException if optimistic locking is not configured
+     * @throws ConcurrencyFailureException if the record is missing or its version has changed
+     */
+    @Transactional
+    public int updateOptimistically(ID id, Long expectedVersion, R record) {
+        if (versionField == null) {
+            throw new IllegalStateException("Optimistic locking is not configured for this table");
+        }
+
+        if (table.getPrimaryKey() == null) {
+            throw new IllegalArgumentException("This method can only be called on tables with a primary key");
+        }
+
+        Objects.requireNonNull(expectedVersion, "expectedVersion");
+        Objects.requireNonNull(record, "record");
+
+        if (expectedVersion < 0) {
+            throw new IllegalArgumentException("expectedVersion must not be negative");
+        }
+
+        if (!record.touched()) {
+            throw new IllegalArgumentException("At least one field must be updated");
+        }
+
+        if (record.touched(versionField)) {
+            throw new IllegalArgumentException("The version field is managed automatically");
+        }
+
+        int updated = dslContext
+                .update(table)
+                .set(record)
+                .set(versionField, versionField.add(1L))
+                .where(
+                        eq(table.getPrimaryKey(), id)
+                                .and(versionField.eq(expectedVersion))
+                )
+                .execute();
+
+        if (updated == 0) {
+            throw new ConcurrencyFailureException("Optimistic locking failed for id " + id + " at version " + expectedVersion);
+        }
+
+        return updated;
     }
 
     /**
