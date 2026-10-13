@@ -47,20 +47,16 @@ public abstract class JooqDAO<T extends Table<R>, R extends UpdatableRecord<R>, 
      *
      * @param id the primary key value of the record to check
      * @return {@code true} if a record with the specified primary key exists,
-     *         {@code false} otherwise
+     * {@code false} otherwise
      * @throws IllegalArgumentException if the table does not have a primary key
      */
     public boolean existsById(ID id) {
         if (table.getPrimaryKey() == null) {
             throw new IllegalArgumentException("This method can only be called on tables with a primary key");
         }
-        return dslContext
-                .selectOne()
-                .from(table)
-                .where(eq(table.getPrimaryKey(), id))
-                .fetchExists();
+        return dslContext.fetchExists(table, eq(table.getPrimaryKey(), id));
     }
-    
+
     /**
      * Finds a record by its primary key.
      *
